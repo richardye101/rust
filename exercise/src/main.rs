@@ -28,19 +28,21 @@ fn transpose(matrix: [[i32; 3]; 3]) -> [[i32; 3]; 3] {
 // Calculate the magnitude of a vector by summing the squares of its coordinates
 // and taking the square root. Use the `sqrt()` method to calculate the square
 // root, like `v.sqrt()`.
-fn magnitude(vector: &([f64; 3], [f64; 3])) -> f64 {
-    let xMag = *vector[1][0] - *vector[0][0];
-    let yMag = *vector[1][1] - *vector[0][1];
-    let zMag = *vector[1][2] - *vector[0][2];
-    
-    let mut mag = xMag.pow(2) + yMag.pow(2) + zMag.pow(2);
-    mag.sqrt();
+fn magnitude(vector: &[f64; 3]) -> f64 {
+    let mut mag = 0.0;
+    for i in vector {
+        mag += i * i;
+    }
+    mag.sqrt()
 }
 
 // Normalize a vector by calculating its magnitude and dividing all of its
 // coordinates by that magnitude.
-fn normalize(vector: &([f64; 3], [f64; 3])) -> ([f64; 3], [f64; 3]) {
-    
+fn normalize(vector: &mut[f64; 3]) {
+    let mag = magnitude(vector);
+    for i in vector{
+        *i /= mag;
+    }
 }
 
 fn main() {
